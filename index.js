@@ -23,7 +23,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({extended:true}))
 
 // create database connection
-var con = mysql.createConnection({
+let con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "qwerty",
@@ -35,7 +35,21 @@ con.connect(function(err){
     console.log("Connected to joga_mysql db");
 })
 
+// Show all articles - index page
+
+app.get('/', (req, res) =>{
+    let query ="SELECT * FROM article";
+    let articles = []
+    con.query(query, (err, result) => {
+        if (err) throw err;
+        articles = result
+        res.render('index', {
+            articles: articles
+        })
+    })
+});
+
 // app start
 app.listen(3000, () => {
-    console.log("APp iS started at http://localhost:3000");
+    console.log("APP iS started at http://localhost:3000");
 }); 
