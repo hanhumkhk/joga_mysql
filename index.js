@@ -1,8 +1,18 @@
 // application packages
 const express = require('express')
 const app = express()
-
 const path = require('path')
+
+// add template engine
+const hbs = require('express-handlebars');
+// setup template engine dir and file extensions
+app.set('views', path.join(__dirname,'views'));
+app.set('view engine', 'hbs');
+app.engine('hbs', hbs.engine ({
+    extname: 'hbs',
+    defaultLayout: 'main',
+    layoutsDir: __dirname + '/views/layouts',
+}))
 
 const mysql = require('mysql')
 
@@ -23,7 +33,6 @@ con.connect(function(err){
 })
 
 // app start
-
 app.listen(3000, () => {
     console.log("APp iS started at http://localhost:3000");
 }); 
