@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const articleController = require('../controllers/author');
+const authorController = require('../controllers/author');
 
-router.get('/', articleController.getAllArticlesByAuthor);
+router.get('/', authorController.getAllArticlesByAuthor);
 
-module.exports = router; 
+module.exports = router;

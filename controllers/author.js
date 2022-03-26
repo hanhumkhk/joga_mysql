@@ -10,9 +10,10 @@ app.get('/author/:id', (req,res) => {
         con.query(author, (err, result) => {
             if (err) throw err;
             let authorData = result
+            console.log(authorData)
             res.render('author', {
-                author: authorData,
-                articles: articles
+                articles: articles,
+                author: authorData
             })
         })
     })

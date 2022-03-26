@@ -14,7 +14,7 @@ const getAllArticles = (req, res) =>{
     })
 };
 
-// Show article by this slug
+// Show article by this slug, slug is
 
 const getArticleBySlug = (req,res) =>{
     let query = `SELECT * , author.name as author_name, article.name as article_name FROM author  iNNER JOIN article ON author.id = article.author_id WHERE slug="${req.params.slug}"`
