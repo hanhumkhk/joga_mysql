@@ -41,7 +41,6 @@ app.get('/', (req, res) =>{
     })
 });
 // Show article by this slug
-
 app.get('/article/:slug', (req,res) =>{
     let query = `SELECT * , author.name as author_name, article.name as article_name FROM author  iNNER JOIN article ON author.id = article.author_id WHERE slug="${req.params.slug}"`
     let article
@@ -54,6 +53,25 @@ app.get('/article/:slug', (req,res) =>{
         })
     });
 });
+
+app.get('/author/:id', (req,res) => {
+    let query = `SELECT *, article.name AS Title FROM article INNER JOIN author ON article.author_id = author.id WHERE author.id="${req.params.id}"`;
+    let articles = []
+    let author = `select name from author where author.id="${req.params.id}"`;
+    con.query(query, (err,result) => {
+        if (err) throw err;
+        articles = result
+        con.query(author, (err, result) => {
+            if (err) throw err;
+            let authorData = result
+            res.render('author', {
+                author: authorData,
+                articles: articles
+            })
+        })
+    })
+});
+
 // app start
 app.listen(3000, () => {
     console.log("APP iS started at http://localhost:3000");
